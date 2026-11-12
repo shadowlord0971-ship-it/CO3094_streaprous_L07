@@ -10,4 +10,5 @@
 # while attending the course
 #
 
+from .chatapp import build_chatapp, create_chatapp
 from .sampleapp import create_sampleapp
