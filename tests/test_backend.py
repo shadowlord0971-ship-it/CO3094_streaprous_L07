@@ -125,10 +125,11 @@ class BackendCliTests(unittest.TestCase):
 
 class SampleAppTransportTests(unittest.TestCase):
     def test_create_sampleapp_forwards_transport(self):
-        with patch.object(sampleapp.app, "prepare_address") as prepare, patch.object(
-            sampleapp.app, "run"
-        ) as run:
+        with patch("apps.sampleapp.install_auth") as install, patch.object(
+            sampleapp.app, "prepare_address"
+        ) as prepare, patch.object(sampleapp.app, "run") as run:
             sampleapp.create_sampleapp("127.0.0.1", 9000, "standard")
+        install.assert_called_once_with(sampleapp.app)
         prepare.assert_called_once_with("127.0.0.1", 9000)
         run.assert_called_once_with(transport="standard")
 
